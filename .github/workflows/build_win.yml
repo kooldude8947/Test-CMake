@@ -1,0 +1,27 @@
+name: Test CMake
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - name: Check out sources
+        uses: actions/checkout@v7
+
+      - name: Compile
+        shell: cmd
+        run: |
+          mkdir build
+          cmake -S . -B build -G Ninja ^
+          -DCMAKE_BUILD_TYPE=Release ^
+          -DCMAKE_C_COMPILER=clang.exe ^
+          -DCMAKE_CXX_COMPILER=clang++.exe ^
+          -DCMAKE_RC_COMPILER=llvm-rc.exe
+          cmake --build build
