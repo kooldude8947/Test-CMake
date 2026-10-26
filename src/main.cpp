@@ -2,6 +2,8 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 
+#pragma comment(lib, "onecore.lib")
+
 #include <windows.h>
 #include <winsock2.h>
 
