@@ -11,17 +11,31 @@ on:
 jobs:
   build:
     runs-on: windows-2022
+    defaults:
+      run:
+        shell: cmd
     steps:
       - name: Check out sources
         uses: actions/checkout@v7
 
-      - name: Compile
-        shell: cmd
+      - name: Download Windows 7.1 SDK
+        shell: powershell
         run: |
-          mkdir build
-          cmake -S . -B build -G Ninja ^
-          -DCMAKE_BUILD_TYPE=Release ^
-          -DCMAKE_C_COMPILER=clang.exe ^
-          -DCMAKE_CXX_COMPILER=clang++.exe ^
-          -DCMAKE_RC_COMPILER=llvm-rc.exe
-          cmake --build build
+          $VS_BTOOLS_EXE="GRMSDKX_EN_DVD.iso"
+          $VS_BTOOLS_URI="https://download.microsoft.com/download/F/1/0/F10113F5-B750-4969-A255-274341AC6BCE/GRMSDKX_EN_DVD.iso"
+          $AllProtocols = [System.Net.SecurityProtocolType]'Tls,Tls11,Tls12'
+          [System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols
+          $ProgressPreference = 'SilentlyContinue'
+          Invoke-WebRequest -Uri $VS_BTOOLS_URI -OutFile $VS_BTOOLS_EXE
+
+      - name: Mount Windows 7.1 SDK ISO
+        shell: pwsh
+        run: Mount-DiskImage -ImagePath "${{github.workspace}}\GRMSDKX_EN_DVD.iso"
+
+      - name: Install Windows 7.1 SDK
+        run: E:\Setup\SDKSetup.exe /quiet
+        
+      - name: List dir
+        run: |
+          echo "Listing directory 1..." && dir /S "C:\Program Files (x86)\Microsoft SDKs\Windows"
+          echo "Listing directory 2..." && dir /S "C:\Program Files (x86)\Windows Kits"
