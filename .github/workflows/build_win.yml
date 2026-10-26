@@ -19,6 +19,6 @@ jobs:
         shell: cmd
         run: |
           mkdir build
-          cmake -S . -B build -D_WIN32_WINNT=0x0601 -DWINVER=0x0601 ^
+          cmake -S . -B build -D_WIN32_WINNT=0x0601 -DWINVER=0x0601 -DCMAKE_SYSTEM_VERSION=6.1.7601 ^
           -DCMAKE_BUILD_TYPE=Release
           cmake --build build
