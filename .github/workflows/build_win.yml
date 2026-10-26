@@ -31,5 +31,7 @@ jobs:
       - name: Install Windows 7.1 SDK
         shell: pwsh
         run: |
-          Mount-DiskImage -ImagePath "${{github.workspace}}\GRMSDKX_EN_DVD.iso"
+          $MountedISO=Mount-DiskImage -ImagePath "${{github.workspace}}\GRMSDKX_EN_DVD.iso"
+          Get-Volume -DiskImage $MountedISO
+          Dismount-DiskImage $MountedISO.ImagePath
 
