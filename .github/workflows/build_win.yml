@@ -29,7 +29,7 @@ jobs:
           Invoke-WebRequest -Uri $VS_BTOOLS_URI -OutFile $VS_BTOOLS_EXE
 
       - name: Install Windows 7.1 SDK
-        run: Dism /Mount-image /Imagefile:"${{github.workspace}}\GRMSDKX_EN_DVD.iso" /index:1 /MountDir:"C:\win7sdk"
+        shell: pwsh
+        run: |
+          Mount-DiskImage -ImagePath "${{github.workspace}}\GRMSDKX_EN_DVD.iso"
 
-      - name: List dir
-        run: dir /S C:\win7sdk
