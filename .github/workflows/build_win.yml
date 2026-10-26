@@ -22,11 +22,14 @@ jobs:
         shell: powershell
         run: |
           $VS_BTOOLS_EXE="GRMSDKX_EN_DVD.iso"
-          $VS_BTOOLS_URI="http://download.microsoft.com/download/F/1/0/F10113F5-B750-4969-A255-274341AC6BCE/GRMSDKX_EN_DVD.iso"
+          $VS_BTOOLS_URI="https://download.microsoft.com/download/F/1/0/F10113F5-B750-4969-A255-274341AC6BCE/GRMSDKX_EN_DVD.iso"
+          $AllProtocols = [System.Net.SecurityProtocolType]'Tls,Tls11,Tls12'
+          [System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols
+          $ProgressPreference = 'SilentlyContinue'
           Invoke-WebRequest -Uri $VS_BTOOLS_URI -OutFile $VS_BTOOLS_EXE
 
       - name: Install Windows 7.1 SDK
-        run: Dism /Mount-Image /ImageFile:"GRMSDKX_EN_DVD.iso" /index:1 /MountDir:"C:\win7sdk"
+        run: Dism /Mount-image /Imagefile:"${{github.workspace}}\GRMSDKX_EN_DVD.iso" /index:1 /MountDir:"C:\win7sdk"
 
       - name: List dir
         run: dir /S C:\win7sdk
