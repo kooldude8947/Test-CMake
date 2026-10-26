@@ -28,16 +28,11 @@ jobs:
           $ProgressPreference = 'SilentlyContinue'
           Invoke-WebRequest -Uri $VS_BTOOLS_URI -OutFile $VS_BTOOLS_EXE
 
-      - name: Install Windows 7.1 SDK
+      - name: Mount Windows 7.1 SDK ISO
         shell: pwsh
         run: |
           $MountedISO=Mount-DiskImage -ImagePath "${{github.workspace}}\GRMSDKX_EN_DVD.iso"
-          Get-Volume -DiskImage $MountedISO
-          dir E:\
-          Start-Process -FilePath "E:\setup.exe" -ArgumentList "-q -params:ADDLOCAL=ALL"
-          Dismount-DiskImage $MountedISO.ImagePath
+          Get-Volume -DiskImage $MountedISO          
 
       - name: Install Windows 7.1 SDK
-        shell: pwsh
-        run: |
-          $MountedISO=Mount-DiskImage -ImagePath "${{github.workspace}}\GRMSDKX_EN_DVD.iso"
+        run: dir /S E:\
