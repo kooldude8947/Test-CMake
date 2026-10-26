@@ -33,5 +33,6 @@ jobs:
         run: |
           $MountedISO=Mount-DiskImage -ImagePath "${{github.workspace}}\GRMSDKX_EN_DVD.iso"
           Get-Volume -DiskImage $MountedISO
+          dir E:\
           Dismount-DiskImage $MountedISO.ImagePath
 
