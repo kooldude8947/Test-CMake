@@ -11,6 +11,9 @@ on:
 jobs:
   build:
     runs-on: windows-2022
+    defaults:
+      run:
+        shell: cmd
     steps:
       - name: Check out sources
         uses: actions/checkout@v7
@@ -23,7 +26,6 @@ jobs:
         with:
           toolset: 14.1
       - name: Compile
-        shell: cmd
         run: |
           mkdir build
           cmake -S . -B build -D_WIN32_WINNT=0x0601 -DWINVER=0x0601 -DCMAKE_SYSTEM_VERSION=6.1.7601 ^
