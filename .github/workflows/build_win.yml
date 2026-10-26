@@ -34,3 +34,8 @@ jobs:
 
       - name: Install Windows 7.1 SDK
         run: E:\setup.exe -q -params:ADDLOCAL=ALL
+
+      - name: List dir
+        run: |
+          echo "Listing directory 1..." && dir /S "C:\Program Files (x86)\Microsoft SDKs\Windows"
+          echo "Listing directory 2..." && dir /S "C:\Program Files (x86)\Windows Kits"
