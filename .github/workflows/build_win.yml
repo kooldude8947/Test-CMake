@@ -33,8 +33,8 @@ jobs:
         run: Mount-DiskImage -ImagePath "${{github.workspace}}\GRMSDKX_EN_DVD.iso"
 
       - name: Install Windows 7.1 SDK
-        run: E:\setup.exe -q -params:ADDLOCAL=ALL
-
+        run: E:\Setup\SDKSetup.exe /quiet
+        
       - name: List dir
         run: |
           echo "Listing directory 1..." && dir /S "C:\Program Files (x86)\Microsoft SDKs\Windows"
