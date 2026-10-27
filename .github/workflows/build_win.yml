@@ -18,10 +18,5 @@ jobs:
       - name: Compile
         shell: cmd
         run: |
-          mkdir build
           cmake -S . -B build -G Ninja ^
-          -DCMAKE_BUILD_TYPE=Release ^
-          -DCMAKE_C_COMPILER=clang.exe ^
-          -DCMAKE_CXX_COMPILER=clang++.exe ^
-          -DCMAKE_RC_COMPILER=llvm-rc.exe
           cmake --build build
