@@ -19,5 +19,5 @@ jobs:
         shell: cmd
         run: |
           mkdir build
-          cmake -S . -B build -G "Ninja" ^
+          cmake -S . -B build -G "Ninja"
           cmake --build build
